@@ -32,7 +32,6 @@ struct AddView: View {
 
         }
         .navigationTitle("Add something")
-        
     }
 }
 
