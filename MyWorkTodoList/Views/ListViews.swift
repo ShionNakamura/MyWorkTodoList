@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct ListViews: View {
-    @State var items: [String] = [
-        "Hi",
-        "Hi",
-        "Hi"
+    @State var items: [ItemModel] = [
+        ItemModel(title: "Yooo", isCompleted: true),
+        ItemModel(title: "heyyy", isCompleted: false),
+        ItemModel(title: "hiii", isCompleted: true)
+
     ]
     var body: some View {
         List{
-            ForEach(items,id:\.self){ item in
-                ListRowView(title: item)
+            ForEach(items){ item in
+                ListRowView(item: item)
             }
+            .onDelete (perform: deleteItem)
+            .onMove(perform: moveItem)
         }
         .navigationTitle("My workout list!!")
         .toolbar {
@@ -29,6 +32,14 @@ struct ListViews: View {
                     }
                 }
     }
+    
+    func deleteItem(indexSet: IndexSet){
+        items.remove(atOffsets: indexSet)
+    }
+    func moveItem(from: IndexSet, to:Int){
+        items.move(fromOffsets: from, toOffset: to)
+    }
+    
 }
 
 #Preview {
