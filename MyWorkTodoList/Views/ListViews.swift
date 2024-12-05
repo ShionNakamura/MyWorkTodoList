@@ -19,8 +19,7 @@ struct ListViews: View {
             ForEach(items){ item in
                 ListRowView(item: item)
             }
-            .onDelete (perform: deleteItem)
-            .onMove(perform: moveItem)
+          
         }
         .navigationTitle("My workout list!!")
         .toolbar {
@@ -33,12 +32,7 @@ struct ListViews: View {
                 }
     }
     
-    func deleteItem(indexSet: IndexSet){
-        items.remove(atOffsets: indexSet)
-    }
-    func moveItem(from: IndexSet, to:Int){
-        items.move(fromOffsets: from, toOffset: to)
-    }
+
     
 }
 
