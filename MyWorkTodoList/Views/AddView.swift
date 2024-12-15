@@ -9,6 +9,10 @@ import SwiftUI
 
 struct AddView: View {
     @State var textField: String = ""
+    @EnvironmentObject var listViewModel:ListViewModel
+    @Environment(\.presentationMode) var presentaionMode
+    @State var showAlert:Bool = false
+    @State var alertTitle = ""
     var body: some View {
         ScrollView{
             
@@ -19,7 +23,7 @@ struct AddView: View {
                 .background(Color.gray.opacity(0.5))
            
             Button {
-                
+                saveButtonPressed()
             } label: {
                 Text("Save".uppercased())
                     .foregroundStyle(.white)
@@ -32,11 +36,35 @@ struct AddView: View {
 
         }
         .navigationTitle("Add something")
+        .alert(isPresented: $showAlert) {
+            getAlert()
+        }
+    }
+    
+    func saveButtonPressed(){
+        if textIsAppropiate(){
+            listViewModel.addItem(title: textField)
+            presentaionMode.wrappedValue.dismiss()
+        }
+    }
+    
+    func textIsAppropiate()->Bool{
+       if textField.count < 3{
+            alertTitle = "Uuu suckss"
+            showAlert.toggle()
+            return false
+        }
+        return true
+    }
+    
+    func getAlert()->Alert{
+        return Alert(title: Text(alertTitle))
     }
 }
 
 #Preview {
     NavigationView{
         AddView()
+            .environmentObject(ListViewModel())
     }
 }

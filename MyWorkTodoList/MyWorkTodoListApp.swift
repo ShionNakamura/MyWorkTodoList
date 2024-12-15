@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MyWorkTodoListApp: App {
+    
+    @StateObject var listViewModel:ListViewModel = ListViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ListViews()
+                .environmentObject(listViewModel)
         }
     }
 }
