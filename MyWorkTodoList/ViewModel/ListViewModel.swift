@@ -9,9 +9,13 @@ import Foundation
 
 class ListViewModel:ObservableObject{
     
-    @Published var items:[ItemModel] = [] 
+    @Published var items:[ItemModel] = []
     
-    let itemsKey: String = "items_list"
+    init(){
+        getItem()
+    }
+    
+  
     
     func getItem(){
         
